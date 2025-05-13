@@ -24,4 +24,8 @@ public class TrainerService {
 		Optional<Trainer> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado."));
 	}
+	
+	public Trainer insert(Trainer obj) {
+		return repo.insert(obj);
+	}
 }
