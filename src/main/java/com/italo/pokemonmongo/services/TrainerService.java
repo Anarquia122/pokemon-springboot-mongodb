@@ -28,4 +28,9 @@ public class TrainerService {
 	public Trainer insert(Trainer obj) {
 		return repo.insert(obj);
 	}
+	
+	public void delete(String id) {
+		findById(id);
+		repo.deleteById(id);
+	}
 }
