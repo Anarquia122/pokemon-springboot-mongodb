@@ -33,4 +33,15 @@ public class TrainerService {
 		findById(id);
 		repo.deleteById(id);
 	}
+	
+	public Trainer update(Trainer obj) {
+		Trainer newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+
+	private void updateData(Trainer newObj, Trainer obj) {
+		newObj.setName(obj.getName());
+		newObj.setAge(obj.getAge());
+	}
 }
