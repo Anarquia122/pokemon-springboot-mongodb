@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.italo.pokemonmongo.domain.exceptions.NumbersExceededException;
+import com.italo.pokemonmongo.services.exceptions.NumbersExceededException;
 import com.italo.pokemonmongo.services.exceptions.ObjectNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,14 +23,14 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(NumbersExceededException.class)
 	public ResponseEntity<StandardError> numbersExced(NumbersExceededException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Não encontrado", e.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Quantidade inserida ultrapassou o limite", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<StandardError> illegalArgument(IllegalArgumentException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Não encontrado", e.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Valor invalido", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	

@@ -1,4 +1,4 @@
-package com.italo.pokemonmongo.domain.exceptions;
+package com.italo.pokemonmongo.services.exceptions;
 
 public class NumbersExceededException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

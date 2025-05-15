@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.italo.pokemonmongo.domain.exceptions.NumbersExceededException;
+import com.italo.pokemonmongo.services.exceptions.NumbersExceededException;
 
 @Document
 public class Pokemon implements Serializable {
@@ -60,53 +60,26 @@ public class Pokemon implements Serializable {
 	public List<String> getTypes() {
 		return types;
 	}
+	public void setTypes(List<String> types) {
+		this.types = types;
+	}
 	public List<String> getAttacks() {
 		return attacks;
+	}
+	public void setAttacks(List<String> attacks) {
+		this.attacks = attacks;
 	}
 	public List<String> getWeaks() {
 		return weaks;
 	}
-	public List<String> getResistence() {
+	public void setWeaks(List<String> weaks) {
+		this.weaks = weaks;
+	}
+	public List<String> getResistences() {
 		return resistences;
 	}
-	public void addType(List<String> list) {
-		if (list.size() > 2) {
-			throw new NumbersExceededException("Pokemons have at most two different types");
-		} else if (repeatedObjs(list)) {
-			throw new IllegalArgumentException("Pokemons can't have two of the same type");
-		}
-		types.addAll(list);
-	}
-	public void addAttacks(List<String> list) {
-		if (list.size() > 4) {
-			throw new NumbersExceededException("Pokemons have at most four different attacks");
-		} else if (repeatedObjs(list)) {
-			throw new IllegalArgumentException("Pokemons can't have two of the same attack");
-		}
-		attacks.addAll(list);
-	}
-	public void addWeaks(List<String> list) {
-		if (repeatedObjs(list)) {
-			throw new IllegalArgumentException("Pokemons can't have two of the same weak");
-		}
-		weaks.addAll(list);
-	}
-	public void addResistence(List<String> list) {
-		if (repeatedObjs(list)) {
-			throw new IllegalArgumentException("Pokemons can't have two of the same resistence");
-		}
-		resistences.addAll(list);
-	}
-	
-	private boolean repeatedObjs(List<String> list) {
-		for (int i = 0; i < list.size(); i++) {
-			for (int j = 0; j < list.size(); j++) {
-				if (j != i && list.get(i) == list.get(j)) {
-					return true;
-				}
-			}
-		}
-		return false;
+	public void setResistences(List<String> resistences) {
+		this.resistences = resistences;
 	}
 	
 	@Override
