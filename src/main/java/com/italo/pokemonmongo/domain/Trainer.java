@@ -1,10 +1,14 @@
 package com.italo.pokemonmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.italo.pokemonmongo.dto.CapturedDTO;
 
 @Document(collection = "trainer")
 public class Trainer implements Serializable {
@@ -14,6 +18,8 @@ public class Trainer implements Serializable {
 	private String id;
 	private String name;
 	private Integer age;
+	
+	private List<CapturedDTO> team = new ArrayList<>();
 	
 	public Trainer() {}
 	public Trainer(String id, String name, Integer age) {
@@ -42,6 +48,12 @@ public class Trainer implements Serializable {
 		this.age = age;
 	}
 	
+	public List<CapturedDTO> getTeam() {
+		return team;
+	}
+	public void setTeam(List<CapturedDTO> team) {
+		this.team = team;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
