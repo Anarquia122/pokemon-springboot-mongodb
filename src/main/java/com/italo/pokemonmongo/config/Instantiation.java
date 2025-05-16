@@ -24,7 +24,7 @@ public class Instantiation implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		
+		/*
 		trainerRepo.deleteAll();
 		pokemonRepo.deleteAll();
 		
@@ -61,6 +61,7 @@ public class Instantiation implements CommandLineRunner {
 		t3.getTeam().addAll(Arrays.asList(captured3));
 
 		trainerRepo.saveAll(Arrays.asList(t1, t2, t3));
+		*/
 	}
 
 }

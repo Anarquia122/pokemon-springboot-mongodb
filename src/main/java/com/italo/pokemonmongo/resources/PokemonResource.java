@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,12 @@ public class PokemonResource {
 		List<Pokemon> list = service.findAll();
 		List<Pokemon> orderedList = list.stream().sorted(Comparator.comparingInt(Pokemon::getPokedexNumber)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(orderedList);
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Pokemon> findById(@PathVariable String id) {
+		Pokemon obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping

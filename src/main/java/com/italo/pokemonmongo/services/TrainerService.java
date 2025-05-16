@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.italo.pokemonmongo.domain.Trainer;
+import com.italo.pokemonmongo.dto.CapturedDTO;
 import com.italo.pokemonmongo.repositories.TrainerRepository;
 import com.italo.pokemonmongo.services.exceptions.ObjectNotFoundException;
 
@@ -22,7 +23,7 @@ public class TrainerService {
 	
 	public Trainer findById(String id) {
 		Optional<Trainer> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado."));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Treinador não encontrado."));
 	}
 	
 	public Trainer insert(Trainer obj) {
@@ -43,5 +44,10 @@ public class TrainerService {
 	private void updateData(Trainer newObj, Trainer obj) {
 		newObj.setName(obj.getName());
 		newObj.setAge(obj.getAge());
+	}
+	
+	public Trainer updateTeam(Trainer obj, CapturedDTO objDto) {
+		obj.getTeam().add(objDto);
+		return repo.save(obj);
 	}
 }

@@ -21,7 +21,7 @@ public class CapturedDTO implements Serializable {
 		name = obj.getName();
 		types = obj.getTypes();
 		attacks = obj.getAttacks();
-		this.trainer = trainer;
+		this.setTrainer(trainer);
 	}
 	
 	public Integer getPokedexNumber() {
@@ -47,5 +47,11 @@ public class CapturedDTO implements Serializable {
 	}
 	public void setAttacks(List<String> attacks) {
 		this.attacks = attacks;
+	}
+	public TrainerDTO getTrainer() {
+		return trainer;
+	}
+	public void setTrainer(TrainerDTO trainer) {
+		this.trainer = trainer;
 	}
 }

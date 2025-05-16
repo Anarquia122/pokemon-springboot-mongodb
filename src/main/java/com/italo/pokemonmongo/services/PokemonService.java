@@ -1,6 +1,7 @@
 package com.italo.pokemonmongo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.italo.pokemonmongo.domain.Pokemon;
 import com.italo.pokemonmongo.repositories.PokemonRepository;
 import com.italo.pokemonmongo.services.exceptions.NumbersExceededException;
+import com.italo.pokemonmongo.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PokemonService {
@@ -17,6 +19,11 @@ public class PokemonService {
 	
 	public List<Pokemon> findAll() {
 		return repo.findAll();
+	}
+	
+	public Pokemon findById(String id) {
+		Optional<Pokemon> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Pokemon não encontrado."));
 	}
 	
 	public Pokemon insert(Pokemon obj) {

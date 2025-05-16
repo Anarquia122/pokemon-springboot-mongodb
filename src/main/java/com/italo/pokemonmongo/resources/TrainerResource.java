@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.italo.pokemonmongo.domain.Pokemon;
 import com.italo.pokemonmongo.domain.Trainer;
+import com.italo.pokemonmongo.dto.CapturedDTO;
+import com.italo.pokemonmongo.dto.TrainerDTO;
+import com.italo.pokemonmongo.services.PokemonService;
 import com.italo.pokemonmongo.services.TrainerService;
 
 @RestController
@@ -24,6 +28,9 @@ public class TrainerResource {
 
 	@Autowired
 	private TrainerService service;
+	
+	@Autowired
+	private PokemonService pokemonService;
 	
 	@GetMapping
 	public ResponseEntity<List<Trainer>> findAll() {
@@ -54,6 +61,20 @@ public class TrainerResource {
 	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody Trainer obj) {
 		obj.setId(id);
 		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping(value = "/{id}/team")
+	public ResponseEntity<List<CapturedDTO>> findTeam(@PathVariable String id) {
+		Trainer obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getTeam());
+	}
+	
+	@PutMapping(value = "/{id}/team")
+	public ResponseEntity<Void> updateTeam(@PathVariable String id, @RequestBody Pokemon obj) {
+		Trainer trainerObj = service.findById(id);
+		CapturedDTO objDto = new CapturedDTO(pokemonService.findById(obj.getId()), new TrainerDTO(trainerObj));
+		trainerObj = service.updateTeam(trainerObj, objDto);
 		return ResponseEntity.noContent().build();
 	}
 }

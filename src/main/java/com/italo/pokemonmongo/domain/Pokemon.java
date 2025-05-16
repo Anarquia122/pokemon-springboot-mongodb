@@ -84,7 +84,7 @@ public class Pokemon implements Serializable {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, pokedexNumber);
+		return Objects.hash(id);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -95,6 +95,6 @@ public class Pokemon implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pokemon other = (Pokemon) obj;
-		return Objects.equals(id, other.id) && Objects.equals(pokedexNumber, other.pokedexNumber);
+		return Objects.equals(id, other.id);
 	}
 }
