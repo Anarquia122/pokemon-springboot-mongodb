@@ -71,10 +71,17 @@ public class TrainerResource {
 	}
 	
 	@PutMapping(value = "/{id}/team")
-	public ResponseEntity<Void> updateTeam(@PathVariable String id, @RequestBody Pokemon obj) {
+	public ResponseEntity<Void> addToTeam(@PathVariable String id, @RequestBody Pokemon obj) {
 		Trainer trainerObj = service.findById(id);
 		CapturedDTO objDto = new CapturedDTO(pokemonService.findById(obj.getId()), new TrainerDTO(trainerObj));
-		trainerObj = service.updateTeam(trainerObj, objDto);
+		trainerObj = service.addToTeam(trainerObj, objDto);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping(value = "/{id}/team/{name}")
+	public ResponseEntity<Void> removeFromTeam(@PathVariable String id, @PathVariable String name) {
+		Trainer obj = service.findById(id);
+		obj = service.removeFromTeam(id, name);
 		return ResponseEntity.noContent().build();
 	}
 }
