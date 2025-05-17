@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.italo.pokemonmongo.domain.Pokemon;
+import com.italo.pokemonmongo.resources.util.URL;
 import com.italo.pokemonmongo.services.PokemonService;
 
 @RestController
@@ -43,5 +45,13 @@ public class PokemonResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	// /pokemons/fullsearch?text=pikachu
+	@GetMapping("/fullsearch")
+	public ResponseEntity<List<Pokemon>> fullSearch(@RequestParam(value = "text", defaultValue = "") String text) {
+		text = URL.decodeParam(text);
+		List<Pokemon> list = service.fullSearch(text);
+		return ResponseEntity.ok().body(list);
 	}
 }

@@ -26,6 +26,10 @@ public class PokemonService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Pokemon não encontrado."));
 	}
 	
+	public List<Pokemon> fullSearch(String text) {
+		return repo.fullSearch(text);
+	}
+	
 	public Pokemon insert(Pokemon obj) {
 		testingPokemon(obj);
 		return repo.insert(obj);

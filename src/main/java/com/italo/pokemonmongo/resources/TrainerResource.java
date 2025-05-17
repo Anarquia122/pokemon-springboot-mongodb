@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -19,6 +20,7 @@ import com.italo.pokemonmongo.domain.Pokemon;
 import com.italo.pokemonmongo.domain.Trainer;
 import com.italo.pokemonmongo.dto.CapturedDTO;
 import com.italo.pokemonmongo.dto.TrainerDTO;
+import com.italo.pokemonmongo.resources.util.URL;
 import com.italo.pokemonmongo.services.PokemonService;
 import com.italo.pokemonmongo.services.TrainerService;
 
@@ -83,5 +85,13 @@ public class TrainerResource {
 		Trainer obj = service.findById(id);
 		obj = service.removeFromTeam(id, name);
 		return ResponseEntity.noContent().build();
+	}
+	
+	// /trainers/fullsearch?text=Ash%20Ketchum
+	@GetMapping(value = "/fullsearch")
+	public ResponseEntity<List<Trainer>> fullSearch(@RequestParam(value = "text", defaultValue = "") String text) {
+		text = URL.decodeParam(text);
+		List<Trainer> list = service.fullSearch(text);
+		return ResponseEntity.ok().body(list);
 	}
 }

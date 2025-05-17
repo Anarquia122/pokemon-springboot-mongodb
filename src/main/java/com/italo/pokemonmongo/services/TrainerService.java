@@ -27,6 +27,10 @@ public class TrainerService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Treinador não encontrado."));
 	}
 	
+	public List<Trainer> fullSearch(String text) {
+		return repo.fullSearch(text);
+	}
+	
 	public Trainer insert(Trainer obj) {
 		return repo.insert(obj);
 	}
